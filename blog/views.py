@@ -32,8 +32,10 @@ def product_add(request):
 #     cities = City.objects.filter(country_id=country_id).order_by('name')
 #     return render(request, 'city_dropdown_list_options.html', {'cities': cities})
 
+
 def load_cities(request):
-    attribute_id = request.GET.get('attribute')   #attribute_id_list
+    # attribute_id = request.GET.get('id_attribute')   #attribute_id_list
+    attribute_id = request.GET['attribute']
     print(attribute_id, '2222222')
     configures = Configure.objects.filter(attribute_id=attribute_id).order_by('slug')
     print(configures , "7777777777777")
