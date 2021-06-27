@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<h4>Cart List</h4>
+
+{% if cart_obj.products.exists %}
+
+<table>
+   <thead>
+   <tr>
+      <th>Serial No</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>remove / add</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+      {% for product in cart_obj.products.all %}
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'product_detail' product.slug  %}">{{ product.name }}</a></td>
+            <td>{{ product.price }}</td>
+            <td>
+<!--                <form method="POST" action="{% url 'cart_update' %}">-->
+<!--                    {% csrf_token %}-->
+<!--                    <input type="hidden" name="product_id" value="{{product.id}}">-->
+<!--                        {% if product in Cart.objects.all %}-->
+
+<!--                        {% else %}-->
+<!--                          <button type="submit">Remove</button>-->
+<!--                        {% endif %}-->
+<!--                </form>-->
+
+
+
+                <form method="POST" action="{% url 'cart_update' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{product.id}}">
+                    {% if in_cart == True %}
+<!--                            <button type="submit">1Remove</button>-->
+                    {% else %}
+                        {% if product in Cart.objects.all %}
+<!--                                <button type="submit">2Remove</button>-->
+                        {% else %}
+                          <button type="submit">3Remove</button>   <!--<button type="submit">add to cart</button>-->
+                        {% endif %}
+                    {% endif %}
+                </form>
+            </td>
+      {% endfor %}
+   </tr>
+   </tbody>
+</table>
+
+<p>Sub total: {{cart_obj.subtotal}}</p>
+   <p>total: {{cart_obj.total}}</p>
+
+{% else %}
+
+<p>cart is empty</p>
+
+{% endif %}
+
+{% endblock %}

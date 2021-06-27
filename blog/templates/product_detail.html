@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<h3>Product Detail</h3>
+
+<img src="/media/products/{{product.main_image}}"/>
+
+    {{product.id}}
+    {{product.name}}
+    {{product.price}}
+<br>
+
+<form method="POST" action="{% url 'cart_update' %}">
+    {% csrf_token %}
+    <input name="product_id" value="{{product.id}}">   <!-- type="hidden" -->
+    {% if product in Cart.objects.all %}
+        <button type="submit">Remove</button>
+    {% else %}
+        <button type="submit">add to cart</button>
+    {% endif %}
+</form>
+
+{% endblock %}

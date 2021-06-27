@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+<!-- main section -->
+    <h4>Product List</h4>
+<br>
+                        {% for pro in allproducts %}
+                            {{pro.name}}
+                            {{pro.price}}
+<a href="{% url 'product_detail' pro.slug %}" >product detail</a>
+<!--<a href="{% url 'cart_home' %}" >add to cart</a>-->
+    <br>
+                        {% endfor %}
+
+
+<!-- add new product  -->
+
+                <h5 class="modal-title">Add New Product</h5>
+                <br>
+
+    <form method="post" enctype="multipart/form-data"  id="personForm" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+    {% csrf_token %}
+      {{ form.as_p }}
+
+
+<!--        <div class="form-group col-md-12">-->
+<!--            <label> name</label>-->
+<!--            <input type="text" class="form-control" name="name" placeholder="" />-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-12">-->
+<!--            <label>price</label>-->
+<!--            <input type="text" class="form-control" name="price" placeholder="" />-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-12">-->
+<!--               <label>Image</label>-->
+<!--               <input type="file" class="form-control image-upload" name="main_image" />-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-12">-->
+<!--                        <label>Category</label>-->
+<!--                        <select class="custom-select" name="category">-->
+<!--                            <option selected>Open this select menu</option>-->
+<!--                            {% for sub in allsubcategory %}-->
+<!--                            <option value="{{sub.id}}">{{ sub.subcategoryname }}</option>-->
+<!--                            {% endfor %}-->
+<!--                        </select>-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-12">-->
+<!--                        <label>Attribute</label>-->
+<!--                        <select class="custom-select" name="attribute" id="id_attribute">-->
+<!--                            <option selected>Open this select menu</option>-->
+<!--                           {% for attr in allattribute %}-->
+<!--                            <option value="{{attr.id}}">{{ attr.atributesname }}</option>-->
+<!--                            {% endfor %}-->
+<!--                        </select>-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-12">-->
+<!--                        <label>Configure</label>-->
+<!--                        <select class="custom-select" name="configure" id="id_configure">-->
+<!--                            <option selected>Open this select menu</option>-->
+<!--                            {% for conf in allconfigure %}-->
+<!--                            <option value="{{conf.id}}">{{ conf.configuresname }}</option>-->
+<!--                            {% endfor %}-->
+<!--                        </select>-->
+<!--        </div>-->
+
+
+    <button type="submit">Save</button>
+  </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+
+
+  <script>
+    $("#id_attribute").change(function () {
+<!--    console.log("hhhhhhhhhhhhhhh");-->
+      var url = $("#personForm").attr("data-cities-url");
+      var attributeId = $(this).val();
+<!--      console.log(configureId);-->
+
+      $.ajax({
+        url: url,
+        data: {
+          attribute : attributeId
+        },
+        success: function (data) {
+          $("#id_configure").html(data);
+<!--          alert("ggggggggggggggggg");-->
+        }
+      });
+    });
+
+  </script>
+
+
+    {% endblock %}

@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}Simple ERP{% endblock %}</title>
+    <title>{% block title %}Simple DEMO{% endblock %}</title>
     <style type="text/css">
       .errorlist {
         margin: 0;
@@ -20,7 +20,10 @@
     </style>
   </head>
   <body>
-    <h1>Simple ERP</h1>
+    <h1>Simple DEMO</h1>
+    <a href="{% url 'index' %}">home</a>
+     <a href="{% url 'product_add' %}">product</a>
+     <a href="{% url 'cart_home' %}">{{request.session.cart_items}} cart</a>
     <hr>
     {% block content %}
     {% endblock %}

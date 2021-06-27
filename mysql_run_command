@@ -1,0 +1,10 @@
+sudo /etc/init.d/apache2 stop
+sudo /opt/lampp/lampp stop
+sudo /etc/init.d/mysql stop
+sudo service mysql stop
+sudo /opt/lampp/lampp start
+
+
+https://github.com/celikyuksell/Django-E-Commerce/tree/5b978d651a3e15c3827099e4530ba370c0b3f3ab
+
+https://stackoverflow.com/questions/66433103/django-size-dropdown-and-color-radio-buttons-with-changing-prices-images-dep
