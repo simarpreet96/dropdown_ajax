@@ -24,6 +24,7 @@
     <a href="{% url 'index' %}">home</a>
      <a href="{% url 'product_add' %}">product</a>
      <a href="{% url 'cart_home' %}">{{request.session.cart_items}} cart</a>
+     <a href="{%  url 'checkout_home' %}">checkout</a>
     <hr>
     {% block content %}
     {% endblock %}

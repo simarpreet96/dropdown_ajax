@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<h4>Checkout</h4>
+
+cart total: {{object.cart.total}}
+sub total: {{object.shipping_total}}
+order total: {{object.total}}
+
+{% endblock %}

@@ -3,7 +3,7 @@ from urllib import request
 from django.http import Http404
 from django.views.generic import DetailView
 
-from .models import Product, Category, Configure, Attribute, Cart, CartManager
+from .models import Product, Category, Configure, Attribute, Cart, CartManager, Order
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductForm
 
@@ -118,3 +118,13 @@ def cart_update(request):
     request.session['cart_items'] = cart_obj.products.count()
     # return redirect(product_obj.get_absolute_url())
     return redirect('cart_home')
+
+
+def checkout_home(request):
+    cart_obj, cart_created = Cart.objects.new_or_get(request)
+    order_obj = None
+    if not cart_created or cart_obj.count() == 0:
+        return redirect('index')
+    else:
+        order_obj, new_order_obj = Order.objects.get_or_create(cart=cart_obj)
+    return render(request, "checkout.html", locals())
